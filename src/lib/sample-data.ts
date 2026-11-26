@@ -14,7 +14,7 @@ export type LinkItem = {
 // 보여주기용 더미 값입니다. 실제 내용과 사진은 나중에 교체하세요.
 // (사진은 public/ 폴더에 파일을 넣고 "/파일명" 으로 지정하면 됩니다.)
 export const profile: Profile = {
-  name: "백종현",
+  name: "백가네",
   bio: "세계 최강 바이브코더",
   photoUrl: "/dummy-profile.svg",
 };
