@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fff8ef;
+  --foreground: #2d2218;
+  --muted: #7a6a5b;
+  /* 크림 → 연한 살구 */
+  --bg-from: #fffaf2;
+  --bg-via: #ffefdd;
+  --bg-to: #ffdcc2;
+  --glow-a: rgba(255, 190, 140, 0.45);
+  --glow-b: rgba(255, 224, 170, 0.5);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-pretendard);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1b1511;
+    --foreground: #f6ece1;
+    --muted: #b9a999;
+    --bg-from: #1f1813;
+    --bg-via: #261c15;
+    --bg-to: #33231a;
+    --glow-a: rgba(255, 150, 90, 0.16);
+    --glow-b: rgba(255, 200, 120, 0.1);
   }
 }
 
+html {
+  --font-pretendard: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Malgun Gothic",
+    sans-serif;
+}
+
 body {
-  background: var(--background);
+  position: relative;
   color: var(--foreground);
-  font-family: var(--font-geist-sans), "Malgun Gothic", sans-serif;
+  font-family: var(--font-pretendard);
+  background: linear-gradient(
+    160deg,
+    var(--bg-from) 0%,
+    var(--bg-via) 50%,
+    var(--bg-to) 100%
+  );
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 유리 카드 뒤에서 비쳐 보일 은은한 빛 번짐 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40rem 40rem at 15% 10%, var(--glow-b), transparent 60%),
+    radial-gradient(36rem 36rem at 90% 80%, var(--glow-a), transparent 60%);
 }
