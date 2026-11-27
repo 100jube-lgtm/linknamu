@@ -31,16 +31,29 @@ function Icon({ type }: { type?: LinkItem["icon"] }) {
 }
 
 // 클릭수를 집계하기 위해 /go/[id] 를 거쳐 원래 URL로 이동합니다.
-export default function LinkCard({ id, title, icon }: LinkItem) {
+// count: 지금까지의 클릭수(받기 전에는 0), onOpen: 카드를 눌렀을 때 화면의 숫자를 바로 올리는 콜백
+type LinkCardProps = LinkItem & {
+  count?: number;
+  onOpen?: () => void;
+};
+
+export default function LinkCard({ id, title, icon, count = 0, onOpen }: LinkCardProps) {
   return (
     <a
       href={`/go/${id}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex w-full items-center justify-center gap-2.5 rounded-2xl border border-white/70 bg-white/45 px-6 py-[1.125rem] text-center text-[0.95rem] font-medium shadow-[0_8px_30px_-12px_rgba(150,80,30,0.25)] backdrop-blur-xl transition duration-300 hover:-translate-y-px hover:bg-white/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400 dark:border-white/10 dark:bg-white/5 dark:shadow-none dark:hover:bg-white/10"
+      onClick={onOpen}
+      onAuxClick={(e) => {
+        if (e.button === 1) onOpen?.(); // 휠 클릭으로 새 탭에 열 때도 집계됩니다
+      }}
+      className="relative flex w-full items-center justify-center gap-2.5 rounded-2xl border border-white/70 bg-white/45 px-14 py-[1.125rem] text-center text-[0.95rem] font-medium shadow-[0_8px_30px_-12px_rgba(150,80,30,0.25)] backdrop-blur-xl transition duration-300 hover:-translate-y-px hover:bg-white/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400 dark:border-white/10 dark:bg-white/5 dark:shadow-none dark:hover:bg-white/10"
     >
       <Icon type={icon} />
       {title}
+      <span className="absolute right-5 text-xs font-normal tabular-nums opacity-55">
+        {count.toLocaleString("ko-KR")}회
+      </span>
     </a>
   );
 }

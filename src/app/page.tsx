@@ -1,4 +1,4 @@
-import LinkCard from "@/components/LinkCard";
+import LinkList from "@/components/LinkList";
 import ProfileHeader from "@/components/ProfileHeader";
 import { links, profile } from "@/lib/sample-data";
 
@@ -9,13 +9,7 @@ export default function Home() {
       <ProfileHeader {...profile} />
 
       {/* 하단: 링크카드 3개를 세로로 배치 */}
-      <ul className="flex w-full flex-col gap-5">
-        {links.map((link) => (
-          <li key={link.id}>
-            <LinkCard {...link} />
-          </li>
-        ))}
-      </ul>
+      <LinkList links={links} />
     </main>
   );
 }
